@@ -68,7 +68,7 @@ def rag(query: str):
             f"Task:\n"
             f"1. Analyze the provided context carefully.\n"
             f"2. Answer the question concisely and accurately.\n"
-            f"3. give answers from the context.\n\n"
+            f"3. Summarize it and give suggestion\n\n"
             f"Question: {query}\n\n"
             f"Answer:"
         )
