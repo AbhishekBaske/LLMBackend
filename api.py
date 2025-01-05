@@ -35,7 +35,7 @@ def rag(query: str):
         "text-generation",
         model=f"{model_store_path}/model_weights/model",
         tokenizer=f"{model_store_path}/model_weights/tokenizer",
-        torch_dtype=torch.float16,  # Use FP16 for speed
+        torch_dtype=torch.float32,
         device_map="auto",
         pad_token_id=128001,
     )
@@ -46,14 +46,18 @@ def rag(query: str):
         query_embedding = embedding_model.encode(query).tolist()
 
         # Perform similarity search in Pinecone
-        search_results = index.query(vector=query_embedding, top_k=10, include_metadata=True)
+        search_results = index.query(vector=query_embedding, top_k=50, include_metadata=True)
 
-        # Gather retrieved documents
+        # Gather all retrieved documents
         documents = [match["metadata"].get("text", "") for match in search_results["matches"]]
 
-        # Concatenate documents into a context string
+        # Combine all documents into a single context
+        context = " ".join(documents)
+
+        # Check token limits
         max_context_tokens = 1024  # Adjust based on model capacity
-        context = " ".join(documents[:5])  # Use the top 5 results or truncate intelligently
+        if len(context.split()) > max_context_tokens:
+            context = " ".join(context.split()[:max_context_tokens])
 
         # Advanced prompt
         prompt = (
@@ -72,7 +76,7 @@ def rag(query: str):
         # Generate response using the LLM
         llm_response = llm_pipeline(
             prompt,
-            max_new_tokens=200,  # Adjust for output length
+            max_new_tokens=300,  # Adjust for output length
             num_return_sequences=1,
         )
         return llm_response[0]["generated_text"]
