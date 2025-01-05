@@ -61,15 +61,14 @@ def rag(query: str):
 
         # Advanced prompt
         prompt = (
-            f"You are an expert assistant capable of providing accurate and concise answers "
-            f"based on the given context. Use the context to answer the question clearly, "
-            f"without adding information that isn't supported by the context.\n\n"
-            f"read all the context carefully and answer generate in list of poinst if possible. "
+            f"You are an expert assistant have knowledge of Mining Engineering.\n\n"
+            f"The context is about Coal Mine Regulations.\n\n"
+            f"You have to suggest the answer according to the context means according to the Coal Mine Regulations.\n\n"
             f"Context: {context}\n\n"
             f"Task:\n"
             f"1. Analyze the provided context carefully.\n"
             f"2. Answer the question concisely and accurately.\n"
-            f"3. give answers from the context . de domain specific if it not present in context say i can not find context in coal mine regulation 2017.\n\n"
+            f"3. give answers from the context.\n\n"
             f"Question: {query}\n\n"
             f"Answer:"
         )
