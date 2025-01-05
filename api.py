@@ -63,8 +63,9 @@ def rag(query: str):
             f"You are an expert assistant in Mining Engineering.\n\n"
             f"The context is about Coal Mine Regulations.\n\n"
             f"Context: {context}\n\n"
-            f"Question: {query}\n\n"
             f"Provide a concise and relevant answer according to the regulations, focusing on the most important points."
+            f"Question: {query}\n\n"
+            f"Answer:"
         )
 
 
