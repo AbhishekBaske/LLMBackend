@@ -59,27 +59,25 @@ def rag(query: str):
         if len(context.split()) > max_context_tokens:
             context = " ".join(context.split()[:max_context_tokens])
 
+        # Advanced prompt
         prompt = (
-            f"You are an expert assistant in Mining Engineering.\n\n"
-            f"The context is about Coal Mine Regulations.\n\n"
+            f"You are an expert assistant capable of providing accurate and concise answers "
+            f"based on the given context. Use the context to answer the question clearly, "
+            f"without adding information that isn't supported by the context. this is statutory regulation\n\n"
             f"Context: {context}\n\n"
-            f"Provide a concise and relevant answer according to the regulations, focusing on the most important points."
+            f"Task:\n"
+            f"1. Analyze the provided context carefully.\n"
+            f"2. Answer the question concisely and accurately.\n"
+            f"3. If the context does not fully address the question, provide a logical and helpful response based on related information in the context.\n\n"
             f"Question: {query}\n\n"
             f"Answer:"
         )
 
-
-     # Step 6: Generate a response using the LLM with adjusted parameters
+        # Generate response using the LLM
         llm_response = llm_pipeline(
             prompt,
-            max_new_tokens=150,  # Adjust output length as needed
+            max_new_tokens=300,  # Adjust for output length
             num_return_sequences=1,
-            do_sample=True,
-            temperature=0.7,
-            top_k=50,
-            top_p=0.95,
-            max_length=150,  # Adjust max length to avoid unnecessary verbosity
-            no_repeat_ngram_size=3,  # Reduce repetition in the output
         )
         return llm_response[0]["generated_text"]
 
