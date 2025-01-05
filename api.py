@@ -64,11 +64,12 @@ def rag(query: str):
             f"You are an expert assistant capable of providing accurate and concise answers "
             f"based on the given context. Use the context to answer the question clearly, "
             f"without adding information that isn't supported by the context.\n\n"
+            f"read all the context carefully and answer generate in list of poinst if possible. "
             f"Context: {context}\n\n"
             f"Task:\n"
             f"1. Analyze the provided context carefully.\n"
             f"2. Answer the question concisely and accurately.\n"
-            f"3. If the context does not fully address the question, provide a logical and helpful response based on related information in the context.\n\n"
+            f"3. give answers from the context . de domain specific if it not present in context say i can not find context in coal mine regulation 2017.\n\n"
             f"Question: {query}\n\n"
             f"Answer:"
         )
