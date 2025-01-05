@@ -29,7 +29,7 @@ def rag(query: str):
         "text-generation", 
         model=f"{model_store_path}/model_weights/model", 
         tokenizer=f"{model_store_path}/model_weights/tokenizer",
-        torch_dtype="bfloat16", 
+        torch_dtype="bfloat32", 
         device_map="auto",
         pad_token_id=128001,
     )
