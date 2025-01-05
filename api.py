@@ -9,8 +9,7 @@ volume = Volume.from_name("model-weights-vol", create_if_missing=True)
 
 @app.function(image=image, gpu=modal.gpu.T4(count=1), volumes={model_store_path: volume})
 def rag(query: str):
-
-
+    import torch
     from pinecone import Pinecone
     from transformers import pipeline
     from sentence_transformers import SentenceTransformer
@@ -29,7 +28,7 @@ def rag(query: str):
         "text-generation", 
         model=f"{model_store_path}/model_weights/model", 
         tokenizer=f"{model_store_path}/model_weights/tokenizer",
-        torch_dtype="bfloat32", 
+        torch_dtype=torch.float32, 
         device_map="auto",
         pad_token_id=128001,
     )
