@@ -67,7 +67,7 @@ def rag(query: str):
             f"Context: {context}\n\n"
             f"Task:\n"
             f"1. Analyze the provided context carefully.\n"
-            f"2. Answer the question concisely and accurately.\n"
+            f"2. Answer the question in a structred way organise the points\n"
             f"3. Summarize it and give suggestion\n\n"
             f"Question: {query}\n\n"
             f"Answer:"
@@ -77,7 +77,13 @@ def rag(query: str):
         llm_response = llm_pipeline(
             prompt,
             max_new_tokens=300,  # Adjust for output length
-            num_return_sequences=1,
+            num_return_sequences=1,,
+            do_sample=True,
+            temperature=0.7,
+            top_k=50,
+            top_p=0.95,
+            max_length=300,
+            no_repeat_ngram_size=3,
         )
         return llm_response[0]["generated_text"]
 
