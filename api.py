@@ -1,5 +1,6 @@
 import modal
 from modal import Volume
+# from modal import Image
 
 # Define the Modal app and resources
 app = modal.App("rag-api")
